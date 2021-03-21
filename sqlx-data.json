@@ -1,0 +1,93 @@
+{
+  "db": "SQLite",
+  "00b54164d116659657fbe899b5390cfef4b3c6b35672e09b5b9af9b3df937ac4": {
+    "query": "\n                                                update tags set title = ?, \n                                                artist = ?,\n                                                composer =?,\n                                                album = ?,\n                                                year = ?,\n                                                comment = ?,\n                                                description = ?,\n                                                genre = ?,\n                                                duration = ?,\n                                                bitrate = ?,\n                                                num_chapters = ?,\n                                                ts = CURRENT_TIMESTAMP\n                                                where id = ?",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Right": 12
+      },
+      "nullable": []
+    }
+  },
+  "0e8a88529cffe5ea338e0dda918800113085bc17fb95977ac6915ad3a638a2bd": {
+    "query": "\n                select id, path, title, album, artist from tags\n                order by path\n                ;\n                ",
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int64"
+        },
+        {
+          "name": "path",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "title",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "album",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "artist",
+          "ordinal": 4,
+          "type_info": "Text"
+        }
+      ],
+      "parameters": {
+        "Right": 0
+      },
+      "nullable": [
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "8e5d8a95b8b55e57af37e777216526502c8665c92281268e83f2c0a1fc4e6c0a": {
+    "query": "select id as \"id!\" from tags where path = ?",
+    "describe": {
+      "columns": [
+        {
+          "name": "id!",
+          "ordinal": 0,
+          "type_info": "Int64"
+        }
+      ],
+      "parameters": {
+        "Right": 1
+      },
+      "nullable": [
+        true
+      ]
+    }
+  },
+  "9067369ab69279de5c5d06b6b2a5ce9dc086f4b0465ccdb34625f31d40b8b0c7": {
+    "query": "\n                                                insert into tags \n                                                (path, title, artist, composer, album, year, comment, description, \n                                                    genre, duration, bitrate, num_chapters) \n                                                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n                                                ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Right": 12
+      },
+      "nullable": []
+    }
+  },
+  "fa97d3052858cbdb5db0dccb2c24cd86d6af895c3e288e151c22220a1d66dcd9": {
+    "query": "delete from tags",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Right": 0
+      },
+      "nullable": []
+    }
+  }
+}
