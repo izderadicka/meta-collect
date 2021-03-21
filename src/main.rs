@@ -1,7 +1,7 @@
 use anyhow::{anyhow, Result};
 use futures::TryStreamExt;
 use mime_guess::mime;
-use sqlx::sqlite::SqlitePool;
+use sqlx::{Row, sqlite::SqlitePool};
 use std::path::{Path, PathBuf};
 use std::{borrow::Cow, env};
 use structopt::StructOpt;
@@ -43,7 +43,7 @@ async fn main() -> Result<()> {
 
     match args.cmd {
         Cmd::List => {
-            let mut recs = sqlx::query!(
+            let mut recs = sqlx::query(
                 r#"
                 select id, path, title, album, artist from tags
                 order by path
@@ -53,7 +53,8 @@ async fn main() -> Result<()> {
             .fetch(&pool);
             println!("id|path|title|album|artist");
             while let Some(r) = recs.try_next().await? {
-                println!("{}|{}|{}|{}|{}", r.id.unwrap(), r.path, s(&r.title), s(&r.album), s(&r.artist));
+                println!("{}|{}|{}|{}|{}", r.get::<i64,_>("id"), r.get::<&str,_>("path"), s(&r.get("title")), 
+                s(&r.get("album")), s(&r.get("artist")));
             }
         }
 
